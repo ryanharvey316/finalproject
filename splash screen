@@ -1,0 +1,17 @@
+var starXposition = [];
+var starYposition = [];
+draw = function() {
+    background(0, 0, 0);
+    for (var i = 0; i < 21; i++) {
+        starXposition.push(random(25,375));
+        starYposition.push(random(25,375));
+        image(getImage("space/star"),starXposition[i],starYposition[i],10,10);
+    }
+    // template text for start button
+    text("Galactic Hunting",125,100);
+    rect(160,300,80,50);
+    textSize(20);
+    fill(3, 3, 3);
+    text("Start",180,333);
+    fill(255, 255, 255);
+};
