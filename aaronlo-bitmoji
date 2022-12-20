@@ -1,0 +1,39 @@
+var drawBitmoji = function (x,y,s){
+noStroke(); 
+// head
+fill(212, 156, 134);
+rectMode(CORNER);
+rect(x+26*s,y-20*s,44*s,53*s);
+ellipse(x+48*s,y-19*s,45*s,18*s);
+arc(x+27*s,y+8*s,14*s,58*s,80,270);
+arc(x+68*s,y+7*s,14*s,58*s,-87,120);
+arc(x+47*s,y+20*s,53*s,62*s,15,165);
+// eyes
+fill(255, 255, 255);
+ellipse(x+38*s,y+2*s,9*s,6*s);
+ellipse(x+58*s,y+2*s,9*s,6*s);
+fill(54, 24, 24);
+ellipse(x+38*s,y+2*s,6*s,6*s);
+ellipse(x+58*s,y+2*s,6*s,6*s);
+// hair
+fill(212, 156, 134);
+rect(x+30*s,y+43*s,36*s,22*s);
+fill(0, 0, 0);
+arc(x+48*s,y+20*s,55*s,63*s,0,180);
+rect(x+20*s,y+10*s,55*s,11*s);
+fill(43, 21, 29);
+arc(x+47*s,y-25*s,45*s,23*s,-195,15);
+arc(x+25*s,y+0.5*s,18*s,50*s,-228,-60);
+arc(x+72*s,y+0.5*s,18*s,50*s,-114,60);
+noFill();
+stroke(0, 0, 0); 
+curve(x+41*s, y+183*s, x+68*s, y+9*s, x+64*s, y-23*s, x+32*s, y+13*s);
+curve(x+64*s, y+220*s, x+29*s, y+9*s, x+33*s, y-23*s, x+32*s, y+13*s);
+// neck
+noStroke();
+fill(64, 64, 64);
+arc(x+48*s,y+60*s,54*s,63*s,-5,186);
+rect(x-13*s,y+78*s,121*s,73*s);
+quad(x+22*s,y+57*s,x+29*s,y+79*s,x-13*s,y+86*s,x-13*s,y+66*s);
+quad(x+75*s,y+57*s,x+69*s,y+79*s,x+108*s,y+86*s,x+108*s,y+66*s);
+};
