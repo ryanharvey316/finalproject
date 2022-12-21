@@ -1,3 +1,4 @@
+//The Hoppy Beaver code was used as the base code for this project and then expanded upon
 //Global variables
 var currentColor = color(0,0,0);
 var currentScene = 1;
@@ -5,6 +6,122 @@ var score = 0;
 var starXposition = [];
 var starYposition = [];
 var rockSpeed = 3;
+var pause = 0;
+var goldSpeed = 3;
+
+//Ryan's Bitmoji
+ // Drawhead function, creates bitmoji head
+var drawHead= function(x,y,h) {
+     var p = h/100;
+    noStroke();
+    fill(255, 225, 189); //skin color
+    ellipse(x,y,80*p,100*p); //head
+    fill(255,225, 189); //left ear color
+    arc(x-40*p,y+3*p,16*p,29*p,42,294); //left ear
+    fill(255,225, 189); //right ear color
+    arc(x+39*p,y+3*p,16*p,29*p,-109,111); //right ear
+    fill(94, 50, 20); //hat color
+    arc(x-1*p,y-12*p,85*p,74*p,178,365); //hair top
+    fill(255, 251, 0); //hat logo color
+    ellipse(x-1*p,y-39*p,17*p,13*p); //hat logo
+    fill(242, 205, 162);
+    triangle(x+10*p,y+25*p,x-8*p,y+25*p,x,y-3*p); //nose
+    stroke(135, 57, 4); //hat color
+    strokeWeight(7*p);
+    fill(120, 81, 13);
+    arc(x,y-10*p,78*p,-24*p,2,179); //hat brim
+    stroke(120, 48, 0);
+    line(x-40*p,y+10*p,x-39*p,y-8*p); //hair left side
+    line(x+36*p,y+11*p,x+36*p,y-7*p); //hair right side
+    stroke(0, 0, 0);
+    strokeWeight(3*p);
+    line(x-25*p,y-6*p,x-33*p,y-11*p); //left glasses handle
+    line(x+43*p,y-10*p,x+23*p,y-5*p); //right glasses handle
+    fill(255, 225, 189); //glasses color
+    rect(x-25*p,y-6*p,20*p,13*p); //left glasses 
+    rect(x+5*p,y-6*p,20*p,13*p); //right glasses
+    line(x-4*p,y-1*p,x+4*p,y-1*p); //glasses bridge
+    noStroke();
+    fill(255, 255, 255); //mouth color
+    arc(x,y+31*p,34*p,31*p,0,179);
+    fill( 97, 124, 88); //eye color hazel
+    ellipse(x-15*p,y+1*p,9*p,9*p); //left eye
+    ellipse(x+16*p,y+1*p,9*p,9*p); //right eye
+    stroke(242, 242, 242);
+    strokeWeight(3);
+    line(x-33*p,y+78*p,x-34*p,y+49*p); //Letter R
+    line(x-21*p,y+58*p,x-33*p,y+49*p); //Letter R
+    line(x-33*p,y+63*p,x-20*p,y+59*p); //Letter R
+    line(x-20*p,y+79*p,x-34*p,y+61*p); //Letter R
+    line(x+1*p,y+79*p,x,y+53*p); //Letter H
+    line(x+1*p,y+64*p,x+14*p,y+64*p); //Letter H
+    line(x+15*p,y+79*p,x+15*p,y+53*p); //Letter H
+}; 
+
+//Drawbody function, creates bitmoji body
+var drawBody = function(x,y,h){
+var p = h/100;
+noStroke();
+fill(14, 4, 74); 
+arc(x,y+92*p,154*p,126*p,-178,0); //body
+stroke(242, 242, 242); //Name 
+    strokeWeight(3*p);
+    line(x-33*p,y+78*p,x-34*p,y+49*p); //Letter R
+    line(x-21*p,y+58*p,x-33*p,y+49*p); //Letter R
+    line(x-33*p,y+63*p,x-20*p,y+59*p); //Letter R
+    line(x-20*p,y+79*p,x-34*p,y+61*p); //Letter R
+    line(x+1*p,y+79*p,x,y+53*p); //Letter H
+    line(x+1*p,y+64*p,x+14*p,y+64*p); //Letter H
+    line(x+15*p,y+79*p,x+15*p,y+53*p); //Letter H
+};
+
+//Combines both head and body into one function
+var drawMe = function(x,y,h){
+  drawBody(x,y,h);
+  drawHead(x,y,h);
+};
+
+//Aaron Bitmoji
+var drawBitmoji = function (x,y,s){
+noStroke(); 
+// head
+fill(212, 156, 134);
+rectMode(CORNER);
+rect(x+26*s,y-20*s,44*s,53*s);
+ellipse(x+48*s,y-19*s,45*s,18*s);
+arc(x+27*s,y+8*s,14*s,58*s,80,270);
+arc(x+68*s,y+7*s,14*s,58*s,-87,120);
+arc(x+47*s,y+20*s,53*s,62*s,15,165);
+// eyes
+fill(255, 255, 255);
+ellipse(x+38*s,y+2*s,9*s,6*s);
+ellipse(x+58*s,y+2*s,9*s,6*s);
+fill(54, 24, 24);
+ellipse(x+38*s,y+2*s,6*s,6*s);
+ellipse(x+58*s,y+2*s,6*s,6*s);
+// hair
+fill(212, 156, 134);
+rect(x+30*s,y+43*s,36*s,22*s);
+fill(0, 0, 0);
+arc(x+48*s,y+20*s,55*s,63*s,0,180);
+rect(x+20*s,y+10*s,55*s,11*s);
+fill(43, 21, 29);
+arc(x+47*s,y-25*s,45*s,23*s,-195,15);
+arc(x+25*s,y+0.5*s,18*s,50*s,-228,-60);
+arc(x+72*s,y+0.5*s,18*s,50*s,-114,60);
+noFill();
+stroke(0, 0, 0); 
+curve(x+41*s, y+183*s, x+68*s, y+9*s, x+64*s, y-23*s, x+32*s, y+13*s);
+curve(x+64*s, y+220*s, x+29*s, y+9*s, x+33*s, y-23*s, x+32*s, y+13*s);
+// neck
+noStroke();
+fill(64, 64, 64);
+arc(x+48*s,y+60*s,54*s,63*s,-5,186);
+rect(x-13*s,y+78*s,121*s,73*s);
+quad(x+22*s,y+57*s,x+29*s,y+79*s,x-13*s,y+86*s,x-13*s,y+66*s);
+quad(x+75*s,y+57*s,x+69*s,y+79*s,x+108*s,y+86*s,x+108*s,y+66*s);
+stroke(1); 
+};
 
 //Button Code
  var Button = function(config) {
@@ -39,8 +156,9 @@ Button.prototype.handleMouseClick = function() {
     }
 };
 
-var buttonA = new Button({
-    x: 120,
+//Start button
+var StartMenu = new Button({
+    x: 69,
     y: 300,
     label: "Start",
     onClick: function(){
@@ -49,7 +167,8 @@ var buttonA = new Button({
     buttonColor: color(128, 150, 148)
 });
 
-var buttonB = new Button({
+//Gameover Button
+var Restart = new Button({
     x: 120,
     y: 300,
     label: "Restart",
@@ -59,24 +178,62 @@ var buttonB = new Button({
     buttonColor: color(79, 84, 84)
 });
 
+//Information Button
+var Info = new Button({
+    x: 201,
+    y: 300,
+    label: "Info",
+    onClick: function(){
+    currentScene = 4;
+    },
+    buttonColor: color(128, 150, 148)
+});
+
+//Back to main menu from information button
+var Back = new Button({
+    x: 126,
+    y: 347,
+    label: "Back",
+    onClick: function(){
+    currentScene = 1;
+    },
+    buttonColor: color(128, 150, 148)
+});
 
 mouseClicked = function() {
     if(currentScene === 1){
-    buttonA.handleMouseClick();
+    StartMenu.handleMouseClick();
+    Info.handleMouseClick();
     }
     if(currentScene === 3) {
-    buttonB.handleMouseClick();
+    Restart.handleMouseClick();
 }
+    if(currentScene === 4) {
+    Back.handleMouseClick();
+}  
+
 };
 
+//Scene for gameover
 var gameover = function() {
-background(28, 27, 27);
+background(0, 0, 0);
 fill(255, 255, 255);
+ //For loop to give randon positions to star in background
+    for (var i = 0; i < 21; i++) {
+        starXposition.push(random(25,375));
+        starYposition.push(random(25,375));
+        image(getImage("space/star"),starXposition[i],starYposition[i],10,10);
+    }
 textSize(20);
 text("Game Over",145,100);
-buttonB.draw(); 
+Restart.draw(); 
 };
 
+background(0, 0, 0);
+Back.draw();
+
+
+//Constructor function for ship 
 var Ship = function(x, y) {
     this.x = x;
     this.y = y;
@@ -84,16 +241,19 @@ var Ship = function(x, y) {
     this.aliens = 0;
 };
 
+//Constructor function for rock
 var Rock = function(x, y) {
     this.x = x;
     this.y = y;
 };
 
+//Constructor function for gold
 var Gold = function(x,y) {
    this.x = x;
    this.y = y;
 };
 
+//Creates ship
 Ship.prototype.draw = function() {
     this.y = constrain(this.y, 0, height);
     fill(138, 95, 95);
@@ -105,6 +265,7 @@ Ship.prototype.draw = function() {
    quad(this.x+-16,this.y+7,this.x+-78,this.y+6,this.x+-56,this.y+20,this.x+20,this.y+7);
 };
 
+//Collision detection for ship and rock
 Ship.prototype.checkForRockGrab = function(rock) {
     if ((rock.x >= this.x-60 && rock.x <= (this.x)) &&
         (rock.y >= this.y && rock.y <= (this.y+10))) {
@@ -113,6 +274,7 @@ Ship.prototype.checkForRockGrab = function(rock) {
     }
 };
 
+//Collision detection for ship and gold
 Ship.prototype.checkForGoldGrab = function(gold) {
     if ((gold.x >= this.x-60 && gold.x <= (this.x)) &&
         (gold.y >= this.y && gold.y <= (this.y+20))) {
@@ -121,31 +283,37 @@ Ship.prototype.checkForGoldGrab = function(gold) {
     }
 };
 
+//Draws rock
 Rock.prototype.draw = function() {
   image(getImage("cute/Rock"),this.x+-11,this.y+-32,35,57);
 };
 
+//Draws gold
 Gold.prototype.draw = function() {
 fill(251, 255, 0);
 ellipse(this.x,this.y,10,10);
 };
 
-
+//gives ship speed -5 to go up
 Ship.prototype.hop = function() {
     this.y -= 5;
 };
 
+//Gives ship speed 5 to go down
 Ship.prototype.fall = function() {
     this.y += 5;
 };
 
+//Creates new ship
 var ship = new Ship(160, 300);
 
+//For loop to slide 1000 rocks across the screen
 var rocks = [];
-for (var i = 0; i <  1000; i++) {  
-    rocks.push(new Rock(i * 40 + 300, random(20, 250)));
+for (var i = 0; i < 1000  ; i++) {  
+    rocks.push(new Rock(i * 40 + 300, random(20, 350)));
 }
 
+//For loop to slide 1000 gold across the screen
 var golds = [];
 for (var i = 0; i <  1000; i++) {  
     golds.push(new Gold(i * 200 + 300, random(20, 350)));
@@ -156,27 +324,35 @@ for (var i = 0; i <  1000; i++) {
 draw = function() {
 if(currentScene === 1)
 {
+  stroke(0, 0, 0);
   background(0, 0, 0);
+   //For loop to give random positions for star in background
     for (var i = 0; i < 21; i++) {
         starXposition.push(random(25,375));
         starYposition.push(random(25,375));
         image(getImage("space/star"),starXposition[i],starYposition[i],10,10);
     }
-      buttonA.draw();
+      StartMenu.draw();
+      Info.draw();
          //static
     fill(235, 235, 12);
-    rect(70,81,255,82);
-    fill(255, 255, 255);
+    rect(73,25,255,82);
+    fill(0, 0, 0);
     textSize(30);
-    text("Galactic Treasure",78,100);
-    
+    text("Galactic Treasure",82,47);
+    drawBitmoji(235,142,0.7);
+    drawMe(133,173,79);
+    stroke(0, 0, 0);
+    strokeWeight(1);
     textSize(20);
- 
+    fill(225, 255, 0);
+    text("By: Ryan Harvey and Aaron Lo",59,258);
 }
 if(currentScene === 2)
 {
      // static
     background(0, 0, 0);
+    //For loop to give randon positions to star in background
     for (var i = 0; i < 21; i++) {
         starXposition.push(random(25,375));
         starYposition.push(random(25,375));
@@ -185,40 +361,90 @@ if(currentScene === 2)
     fill(255, 255, 255);
     text("Score: " + score, 15, 10);
    
+   //Draws rocks until rock array is done
     for (var i = 0; i < rocks.length; i++) {
         rocks[i].draw();
         ship.checkForRockGrab(rocks[i]);
         rocks[i].x -= rockSpeed;
     }
 
+    //Draws gold until gold array is done
    for (var i = 0; i < golds.length; i++) {
         golds[i].draw();
         ship.checkForGoldGrab(golds[i]);
-        golds[i].x -= 3;
+        golds[i].x -= goldSpeed;
    }
-   
+   //If statements for which direction changes depending on what key is pressed
     if (keyIsPressed && keyCode === UP) {
         ship.hop();
     } else if (keyIsPressed && keyCode === DOWN) {
         ship.fall();
     }
+     
+    //Draws ship
     ship.draw();
     
+    //If statement that changes speed of rock depending on the score
     if(score === 10){
-       rockSpeed = 3.5;
+       rockSpeed = 3.4;
+       goldSpeed = 3.4;
 }
- else if(score === 20){
-       rockSpeed = 4;
+    if(score === 20){
+       rockSpeed = 3.8;
+       goldSpeed = 3.8;
 }
- else if(score === 30){
-       rockSpeed = 4.5;
+   if(score === 30){
+       rockSpeed = 4.2;
+       goldSpeed = 4.2;
 }
- else if(score === 40){
+   if(score === 40){
+      rockSpeed = 4.6;
+      goldSpeed = 4.6;
+}
+   if(score === 50){
        rockSpeed = 5;
+       goldSpeed = 5;
+}
+   if(score === 60){
+       rockSpeed = 5.4;
+       goldSpeed = 5.4;
 }
 }
+   if(score === 70){
+      rockSpeed = 5.8;
+      goldSpeed = 5.8;
+}
+   if(score === 80){
+       rockSpeed = 6.2;
+       goldSpeed = 6.2;
+}
+   if(score === 90){
+       rockSpeed = 6.6;
+       goldSpeed = 6.6;
+}
+   if(score === 100){
+       rockSpeed = 7;
+       goldSpeed = 7;
+}   
 if(currentScene === 3)
 {
 gameover();
+}
+//Instructions splash screen
+if(currentScene === 4){
+background(0, 0, 0);
+fill(255, 234, 0);
+textSize(30);
+text("Instructions",125,8);
+textSize(15);
+text("You are a gold hunter trying to collect space gold!",34,87);
+text("Get gold by collecting the golden colored circles",44,110);
+text("Make sure to dodge the asteroids in the process! ",40,130);
+textSize(25);
+text("Controls!",140,154);
+textSize(15);
+text("Up arrow key = UP ",110,216);
+text("Down arrow key = DOWN ",110,262);
+Back.draw();
 }
 };
